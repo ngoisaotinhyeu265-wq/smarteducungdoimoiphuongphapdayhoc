@@ -4069,7 +4069,24 @@ app.post('/api/dictionary/lookup', async (req, res) => {
     const targetGrade = grade || 3;
     const cleanWord = trimmedQuery.toLowerCase().replace(/[.,?!:;'"()]/g, '').trim();
 
-    // Check local fallback map first
+    // Check comprehensive knowledge base and local map first
+    const masterEntry = findVocabEntry(cleanWord);
+    if (masterEntry) {
+      return res.json({
+        word: trimmedQuery,
+        ipa: masterEntry.ipa || `/${cleanWord}/`,
+        wordType: masterEntry.type || 'Noun',
+        vietnameseMeaning: masterEntry.vn || 'Từ vựng tiếng Anh',
+        easyEnglishExplanation: masterEntry.explanation || `This is an important English word for Grade ${targetGrade}.`,
+        modelSentence: masterEntry.sentence || `I like this ${cleanWord}.`,
+        modelSentenceVi: masterEntry.sentenceVi || `Tôi thích ${masterEntry.vn.toLowerCase()}.`,
+        teachingNotes: masterEntry.tpr || 'Luyện phát âm theo phương pháp TPR và khẩu hình chuẩn.',
+        category: masterEntry.category || 'School Subjects',
+        grade: targetGrade,
+        source: 'dictionary'
+      });
+    }
+
     if (FALLBACK_VOCAB_DICT[cleanWord]) {
       const fb = FALLBACK_VOCAB_DICT[cleanWord];
       return res.json({
