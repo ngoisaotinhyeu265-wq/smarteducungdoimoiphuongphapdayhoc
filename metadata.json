@@ -1,0 +1,6 @@
+{
+  "name": "SmartEdu",
+  "description": "Hệ thống AI Giáo viên Tiểu học: Kho học liệu & chủ đề GDPT 2018 (Toán, Tiếng Việt, Tiếng Anh, Khoa học, LS&ĐL), AI English Warm-up Studio, Kế hoạch dạy học Phụ lục 2 CV 2345, SGV 13 môn và Game lớp học.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
