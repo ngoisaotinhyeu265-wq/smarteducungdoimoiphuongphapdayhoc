@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Nunito', 'Poppins', sans-serif;
+  --font-fredoka: 'Fredoka', 'Baloo 2', sans-serif;
+  --font-baloo: 'Baloo 2', cursive;
+}
+
+/* Whimsical & Cartoonish Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) translateX(10px) rotate(-1deg); }
+}
+
+@keyframes float-cloud {
+  0% { transform: translateX(-10%); }
+  100% { transform: translateX(110%); }
+}
+
+@keyframes pulse-star {
+  0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+  50% { transform: scale(1.2) rotate(15deg); opacity: 1; }
+}
+
+@keyframes bubble-rise {
+  0% { transform: translateY(120%) scale(0.5); opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(-20%) scale(1.2); opacity: 0; }
+}
+
+@keyframes spin-wheel {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(3600deg); }
+}
+
+/* Animation classes */
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+.animate-pulse-star {
+  animation: pulse-star 3s ease-in-out infinite;
+}
+
+.animate-spin-wheel {
+  animation: spin-wheel 4s cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
+}
+
+/* Custom Scrollbar for cartoonish style */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb {
+  background: #6C63FF;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4F46E5;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-panel-dark {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Pop, bouncy hover states */
+.btn-bounce {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.btn-bounce:hover {
+  transform: scale(1.05) translateY(-2px);
+  filter: brightness(1.05);
+}
+.btn-bounce:active {
+  transform: scale(0.95) translateY(0px);
+}
+
+.card-cute {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card-cute:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
