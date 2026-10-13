@@ -12,6 +12,15 @@ import { findVocabEntry, createPedagogicalFallback, COMPREHENSIVE_VOCAB_DB } fro
 
 dotenv.config();
 
+// Global server process error safety
+process.on('unhandledRejection', (reason: any) => {
+  console.warn('⚡ Process handled unhandledRejection:', reason?.message || reason);
+});
+
+process.on('uncaughtException', (err: any) => {
+  console.error('⚡ Process handled uncaughtException:', err?.message || err);
+});
+
 const app = express();
 const PORT = 3000;
 
@@ -4079,7 +4088,7 @@ app.post('/api/dictionary/lookup', async (req, res) => {
         vietnameseMeaning: masterEntry.vn || 'Từ vựng tiếng Anh',
         easyEnglishExplanation: masterEntry.explanation || `This is an important English word for Grade ${targetGrade}.`,
         modelSentence: masterEntry.sentence || `I like this ${cleanWord}.`,
-        modelSentenceVi: masterEntry.sentenceVi || `Tôi thích ${masterEntry.vn.toLowerCase()}.`,
+        modelSentenceVi: (masterEntry as any).sentenceVi || `Tôi thích ${masterEntry.vn.toLowerCase()}.`,
         teachingNotes: masterEntry.tpr || 'Luyện phát âm theo phương pháp TPR và khẩu hình chuẩn.',
         category: masterEntry.category || 'School Subjects',
         grade: targetGrade,
@@ -4664,6 +4673,17 @@ INSTRUCTIONS:
       });
     }
     res.status(500).json({ error: err.message });
+  }
+});
+
+// Global Express error handler to catch any unhandled route promise rejections
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('Express error intercepted:', err?.message || err);
+  if (!res.headersSent) {
+    res.status(500).json({ 
+      error: 'Internal server error', 
+      message: err?.message || 'Hệ thống đã tự động khôi phục' 
+    });
   }
 });
 
